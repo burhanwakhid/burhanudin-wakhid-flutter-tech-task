@@ -87,8 +87,9 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
                       onTap: (){
                         model.chooseIngredient(model.listIngredient[index].title);
                       },
+                      enabled: model.checkDate(index),
                       title: Text(model.listIngredient[index].title),
-                      subtitle: Text('Use By: ${model.listIngredient[index].useBy}'),
+                      subtitle: Text('Use By: ${model.listIngredient[index].date}'),
                       trailing: model.listIngredient[index].picked == true ? Icon(
                         Icons.check_circle,
                         color: Theme.of(context).primaryColor,

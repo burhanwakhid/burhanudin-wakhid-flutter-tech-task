@@ -23,6 +23,10 @@ class IngredientProvider extends BaseModel {
   // list ingredient picked
   List<String> ingredientPicked = [];
 
+  DateTime _useBy = DateTime.now();
+
+  DateTime get useBy => _useBy;
+
   // sort ingredient by date
   void _sortByDate(){
     listIngredient.sort((a, b) => b.useBy.compareTo(a.useBy));
@@ -42,6 +46,16 @@ class IngredientProvider extends BaseModel {
     setBusy();
     listRecipe = await _api.getReciper(ingredients);
     setIdle();
+  }
+
+  // check date
+  bool checkDate(int index){
+    var status = listIngredient[index].useBy.compareTo(_useBy);
+    if(status.isNegative){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   // pick ingredient
