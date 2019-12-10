@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_task/src/provider/ingredient_provider.dart';
+import 'package:tech_task/src/screens/list_recipes.dart';
 class IngredientPage extends StatefulWidget {
     const IngredientPage({Key key}) : super(key: key);
 
@@ -32,6 +33,7 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
   }
   @override
   Widget build(BuildContext context) {
+    final IngredientProvider ingredientProvider = Provider.of<IngredientProvider>(context);
     return Scaffold(
       bottomNavigationBar: Container(
           color: Theme.of(context).primaryColor,
@@ -40,7 +42,12 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
               Expanded(
                 child: Builder(
                   builder: (context) => FlatButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          print(ingredientProvider.ingredientPicked);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => RecipePage(ingredients: ingredientProvider.ingredientPicked,)
+                          ));
+                        },
                         icon: Icon(Icons.launch),
                         label: Text("Get Recipe"),
                         textColor: Colors.white,
@@ -51,7 +58,10 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
           ),
         ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          print('object');
+          
+        },
         child: Icon(Icons.calendar_today),
       ),
       appBar: AppBar(

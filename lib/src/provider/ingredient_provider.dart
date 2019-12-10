@@ -1,7 +1,8 @@
 
 import 'package:tech_task/src/api/api.dart';
-import 'package:tech_task/src/constant/data.dart';
+// import 'package:tech_task/src/constant/data.dart';
 import 'package:tech_task/src/model/ingredient_model.dart';
+import 'package:tech_task/src/model/recipe_model.dart';
 import 'package:tech_task/src/provider/base_model.dart';
 
 class IngredientProvider extends BaseModel {
@@ -17,8 +18,10 @@ class IngredientProvider extends BaseModel {
     notifyListeners();
   }
 
+  List<RecipeModel> listRecipe = [];
+
   // list ingredient picked
-  List<String> _ingredientPicked = [];
+  List<String> ingredientPicked = [];
 
   // sort ingredient by date
   void _sortByDate(){
@@ -27,12 +30,17 @@ class IngredientProvider extends BaseModel {
 
   Future<void> fetchData() async {
     setBusy();
-
-    // listIngredient = await _api.getIngredients();
-     await Future.delayed(Duration(milliseconds: 500));
-    listIngredient = ingredientsData.map((recipe) => IngredientModel.fromJson(recipe)).toList();
+    listIngredient = await _api.getIngredients();
+    //  await Future.delayed(Duration(milliseconds: 500));
+    // listIngredient = ingredientsData.map((recipe) => IngredientModel.fromJson(recipe)).toList();
     print(listIngredient);
     _sortByDate();
+    setIdle();
+  }
+
+  Future<void> fetchRecipe(List<String> ingredients) async {
+    setBusy();
+    listRecipe = await _api.getReciper(ingredients);
     setIdle();
   }
 
@@ -46,11 +54,11 @@ class IngredientProvider extends BaseModel {
       }
     });
     if(isPicked){
-      _ingredientPicked.add(title);
+      ingredientPicked.add(title);
     }else{
-      _ingredientPicked.remove(title);
+      ingredientPicked.remove(title);
     }
-    print(_ingredientPicked);
+    print(ingredientPicked);
     notifyListeners();
   }
 }
