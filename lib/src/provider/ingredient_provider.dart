@@ -28,16 +28,16 @@ class IngredientProvider extends BaseModel {
     listIngredient.sort((a, b) => b.useBy.compareTo(a.useBy));
   }
 
+  // fetch data list ingredient
   Future<void> fetchData() async {
     setBusy();
     listIngredient = await _api.getIngredients();
-    //  await Future.delayed(Duration(milliseconds: 500));
-    // listIngredient = ingredientsData.map((recipe) => IngredientModel.fromJson(recipe)).toList();
     print(listIngredient);
     _sortByDate();
     setIdle();
   }
 
+  // fetch data list recipe
   Future<void> fetchRecipe(List<String> ingredients) async {
     setBusy();
     listRecipe = await _api.getReciper(ingredients);
