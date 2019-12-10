@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: routes,
-      home: RecipePage(),
+      home: IngredientPage(),
     );
   }
 }

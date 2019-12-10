@@ -1,32 +1,56 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
+import 'package:tech_task/src/api/api.dart';
+import 'package:tech_task/src/constant/data.dart';
 import 'package:tech_task/src/model/ingredient_model.dart';
+import 'package:tech_task/src/provider/base_model.dart';
 
-import '../env.dart';
+class IngredientProvider extends BaseModel {
 
-class IngredientProvider with ChangeNotifier {
-  List<IngredientModel> _ingredient;
+  final _api = Api();
+
+  // getter and setter list ingredient
+  List<IngredientModel> _ingredient = [];
   List<IngredientModel> get listIngredient => _ingredient;
-
   set listIngredient(List<IngredientModel> val) {
-    _ingredient = val;
+    _ingredient.clear();
+    _ingredient.addAll(val);
     notifyListeners();
   }
 
-  Future<List<IngredientModel>> fetchData() async {
-    final response = await http.get(urlApi+'/ingredients');
-    final res = jsonDecode(response.body);
+  // list ingredient picked
+  List<String> _ingredientPicked = [];
 
-    var dataResponse = res;
+  // sort ingredient by date
+  void _sortByDate(){
+    listIngredient.sort((a, b) => b.useBy.compareTo(a.useBy));
+  }
 
-    List<IngredientModel> data = [];
+  Future<void> fetchData() async {
+    setBusy();
 
-    for (var i = 0; i < dataResponse.length; i++) {
-      var mypict = IngredientModel.fromJson(dataResponse[i]);
-      data.add(mypict);
+    // listIngredient = await _api.getIngredients();
+     await Future.delayed(Duration(milliseconds: 500));
+    listIngredient = ingredientsData.map((recipe) => IngredientModel.fromJson(recipe)).toList();
+    print(listIngredient);
+    _sortByDate();
+    setIdle();
+  }
+
+  // pick ingredient
+  void chooseIngredient(String title){
+    bool isPicked;
+    listIngredient.forEach((ing){
+      if(ing.title == title){
+        ing.picked = !ing.picked;
+        isPicked = ing.picked;
+      }
+    });
+    if(isPicked){
+      _ingredientPicked.add(title);
+    }else{
+      _ingredientPicked.remove(title);
     }
-    listIngredient = data;
-    return listIngredient;
+    print(_ingredientPicked);
+    notifyListeners();
   }
 }

@@ -19,8 +19,9 @@
 class IngredientModel {
   String title;
   String useBy;
+  bool picked;
 
-  IngredientModel({this.title, this.useBy});
+  IngredientModel({this.title, this.useBy, this.picked: false});
 
   // IngredientModel.fromJson(Map<String, dynamic> json) {
   //   title = json['title'];

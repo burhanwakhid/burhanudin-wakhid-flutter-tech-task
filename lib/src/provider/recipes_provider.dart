@@ -3,11 +3,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:tech_task/src/model/recipe_model.dart';
 
-import '../env.dart';
+import 'package:tech_task/src/constant/env.dart';
 
 class RecipeProvider with ChangeNotifier {
   List<RecipeModel> _recipe;
   List<RecipeModel> get listRecipe => _recipe;
+
+  
 
   set listRecipe(List<RecipeModel> val) {
     _recipe = val;

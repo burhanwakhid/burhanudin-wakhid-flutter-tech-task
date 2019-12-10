@@ -1,19 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:tech_task/src/env.dart';
+import 'package:tech_task/src/constant/env.dart';
+import 'package:tech_task/src/model/ingredient_model.dart';
 import 'package:tech_task/src/model/recipe_model.dart';
 
 class Api {
 
   // get ingredient from endpoint
-  static Future getIngredients() async{
+  Future<List<IngredientModel>> getIngredients() async{
     try{
       var url = urlApi+'/ingredients';
       var response = await http.get(url);
-      var data = response.body;
-      print(json.decode(data));
-      return response;
+      List<dynamic> json = jsonDecode(response.body);
+      var result = json.map((ingredient) => IngredientModel.fromJson(ingredient)).toList();
+      return result;
     } catch(e) {
       return e;
     }

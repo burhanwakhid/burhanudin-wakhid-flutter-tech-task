@@ -17,14 +17,14 @@ class _TestState extends State<Test> {
     //     // print(val);
     //   });
     // });
-    Api.getIngredients().then((value) {
-      setState(() {
-        final list = json.decode(value.body);
-        ingredient = list
-            .map<IngredientModel>((json) => new IngredientModel.fromJson(json))
-            .toList();
-      });
-    });
+    // Api.getIngredients().then((value) {
+    //   setState(() {
+    //     final list = json.decode(value.body);
+    //     ingredient = list
+    //         .map<IngredientModel>((json) => new IngredientModel.fromJson(json))
+    //         .toList();
+    //   });
+    // });
     super.initState();
   }
   @override
