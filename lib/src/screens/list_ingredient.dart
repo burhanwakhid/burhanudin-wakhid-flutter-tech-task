@@ -33,30 +33,31 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
   }
   @override
   Widget build(BuildContext context) {
-    final IngredientProvider ingredientProvider = Provider.of<IngredientProvider>(context);
     return Scaffold(
-      bottomNavigationBar: Container(
-          color: Theme.of(context).primaryColor,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Builder(
-                  builder: (context) => FlatButton.icon(
-                        onPressed: () {
-                          print(ingredientProvider.ingredientPicked);
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => RecipePage(ingredients: ingredientProvider.ingredientPicked,)
-                          ));
-                        },
-                        icon: Icon(Icons.launch),
-                        label: Text("Get Recipe"),
-                        textColor: Colors.white,
-                      ),
-                ),
-              ) 
-            ],
+      bottomNavigationBar: Consumer<IngredientProvider>(
+        builder: (context, model, _) => Container(
+            color: Theme.of(context).primaryColor,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Builder(
+                    builder: (context) => FlatButton.icon(
+                          onPressed: model.ingredientPicked.isNotEmpty ? () {
+                            print(model.ingredientPicked);
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => RecipePage(ingredients: model.ingredientPicked,)
+                            ));
+                          } : null,
+                          icon: Icon(Icons.launch),
+                          label: Text("Get Recipe"),
+                          textColor: Colors.white,
+                        ),
+                  ),
+                ) 
+              ],
+            ),
           ),
-        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           print('object');
@@ -87,7 +88,7 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
                       onTap: (){
                         model.chooseIngredient(model.listIngredient[index].title);
                       },
-                      enabled: model.checkDate(index),
+                      // enabled: model.checkDate(index),
                       title: Text(model.listIngredient[index].title),
                       subtitle: Text('Use By: ${model.listIngredient[index].date}'),
                       trailing: model.listIngredient[index].picked == true ? Icon(
