@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_task/src/provider/ingredient_provider.dart';
 import 'package:tech_task/src/screens/list_recipes.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 class IngredientPage extends StatefulWidget {
     const IngredientPage({Key key}) : super(key: key);
 
@@ -58,12 +59,26 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
             ),
           ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          print('object');
-          
-        },
-        child: Icon(Icons.calendar_today),
+      floatingActionButton: Consumer<IngredientProvider>(
+        builder: (__, model, _) => FloatingActionButton(
+          onPressed: (){
+            print('object');
+            DatePicker.showDatePicker(context, 
+              showTitleActions: true,
+              minTime: DateTime(1900, 3, 5),
+              maxTime: DateTime.now(),
+              onChanged: (date){
+                print('Change $date');
+                
+              },
+              onConfirm: (date){
+                print('confirm $date');
+              },
+              currentTime: DateTime.now(), locale: LocaleType.id
+            );
+          },
+          child: Icon(Icons.calendar_today),
+        ),
       ),
       appBar: AppBar(
         title: Text('ingredient'),
