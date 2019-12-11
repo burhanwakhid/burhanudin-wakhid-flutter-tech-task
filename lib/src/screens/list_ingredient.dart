@@ -29,6 +29,7 @@ class DisplayListIngredient extends StatefulWidget {
 class _DisplayListIngredientState extends State<DisplayListIngredient> {
   @override
   void initState() {
+    Provider.of<IngredientProvider>(context, listen: false).checkPreferenceDate();
     Provider.of<IngredientProvider>(context, listen: false).fetchData();
     super.initState();
   }
@@ -43,16 +44,16 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
                 Expanded(
                   child: Builder(
                     builder: (context) => FlatButton.icon(
-                          onPressed: model.ingredientPicked.isNotEmpty ? () {
-                            print(model.ingredientPicked);
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => RecipePage(ingredients: model.ingredientPicked,)
-                            ));
-                          } : null,
-                          icon: Icon(Icons.launch),
-                          label: Text("Get Recipe"),
-                          textColor: Colors.white,
-                        ),
+                      onPressed: model.ingredientPicked.isNotEmpty ? () {
+                        print(model.ingredientPicked);
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => RecipePage(ingredients: model.ingredientPicked,)
+                        ));
+                      } : null,
+                      icon: Icon(Icons.launch),
+                      label: Text("Get Recipe"),
+                      textColor: Colors.white,
+                    ),
                   ),
                 ) 
               ],
@@ -75,7 +76,7 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
                 print('confirm $date');
                 model.setIngredientDate(date);
               },
-              currentTime: DateTime.now(), locale: LocaleType.id
+              currentTime: model.useBy, locale: LocaleType.id
             );
           },
           child: Icon(Icons.calendar_today),
@@ -103,6 +104,10 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
                     child: ListTile(
                       onTap: (){
                         model.chooseIngredient(model.listIngredient[index].title);
+                        // print(model.checkDate(index));
+                        print(model.useBy);
+                        print(model.listIngredient[index].useBy);
+                        print(model.listIngredient[index].useBy.compareTo(model.useBy));
                       },
                       enabled: model.checkDate(index),
                       title: Text(model.listIngredient[index].title),

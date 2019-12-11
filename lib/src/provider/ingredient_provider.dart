@@ -59,6 +59,24 @@ class IngredientProvider extends BaseModel {
     }
   }
 
+  Future<void> checkPreferenceDate() async {
+    var date = await getdate();
+    if(date == null){
+      _useBy = DateTime.now();
+      date = getIngredientDate;
+      print(_useBy);
+    }else{
+      _useBy = DateTime.parse(date);
+      print(_useBy);
+      print('object');
+    }
+    notifyListeners();
+  }
+
+  void listRecipePerIngredient() async {
+    
+  }
+
   // set date
   void setIngredientDate(DateTime time)async {
     // final preference = await PreferenceService.getInstance();
