@@ -27,6 +27,8 @@ class IngredientProvider extends BaseModel {
 
   DateTime get useBy => _useBy;
 
+  List<String> ingredientPerRecipe = [];
+
   String get getIngredientDate => _useBy.toString().substring(0, 10);
   // sort ingredient by date
   void _sortByDate(){
@@ -46,6 +48,10 @@ class IngredientProvider extends BaseModel {
   Future<void> fetchRecipe(List<String> ingredients) async {
     setBusy();
     listRecipe = await _api.getReciper(ingredients);
+    listRecipe.forEach((ing){
+      ingredientPerRecipe.addAll(ing.ingredients);
+    });
+    print(ingredientPerRecipe);
     setIdle();
   }
 
