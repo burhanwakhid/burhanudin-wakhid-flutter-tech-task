@@ -1,6 +1,6 @@
 
+import 'package:tech_task/src/SharedPreference/sharedpreference.dart';
 import 'package:tech_task/src/api/api.dart';
-// import 'package:tech_task/src/constant/data.dart';
 import 'package:tech_task/src/model/ingredient_model.dart';
 import 'package:tech_task/src/model/recipe_model.dart';
 import 'package:tech_task/src/provider/base_model.dart';
@@ -27,6 +27,7 @@ class IngredientProvider extends BaseModel {
 
   DateTime get useBy => _useBy;
 
+  String get getIngredientDate => _useBy.toString().substring(0, 10);
   // sort ingredient by date
   void _sortByDate(){
     listIngredient.sort((a, b) => b.useBy.compareTo(a.useBy));
@@ -56,6 +57,22 @@ class IngredientProvider extends BaseModel {
     }else{
       return true;
     }
+  }
+
+  // set date
+  void setIngredientDate(DateTime time)async {
+    // final preference = await PreferenceService.getInstance();
+    _useBy = time;
+    await setDate(getIngredientDate);
+
+    listIngredient.forEach((ing){
+      var dateCompare = ing.useBy.compareTo(_useBy);
+      if(dateCompare.isNegative){
+        ing.picked = false;
+        ingredientPicked.remove(ing.title);
+      }
+    });
+    notifyListeners();
   }
 
   // pick ingredient

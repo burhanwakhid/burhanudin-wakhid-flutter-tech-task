@@ -73,6 +73,7 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
               },
               onConfirm: (date){
                 print('confirm $date');
+                model.setIngredientDate(date);
               },
               currentTime: DateTime.now(), locale: LocaleType.id
             );
@@ -103,7 +104,7 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
                       onTap: (){
                         model.chooseIngredient(model.listIngredient[index].title);
                       },
-                      // enabled: model.checkDate(index),
+                      enabled: model.checkDate(index),
                       title: Text(model.listIngredient[index].title),
                       subtitle: Text('Use By: ${model.listIngredient[index].date}'),
                       trailing: model.listIngredient[index].picked == true ? Icon(
