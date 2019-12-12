@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tech_task/src/provider/ingredient_provider.dart';
-import 'package:tech_task/src/screens/list_recipes.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:tech_task/src/screens/views/list_recipes.dart';
 import 'package:tech_task/src/screens/widgets/datepicker_widget.dart';
 class IngredientPage extends StatefulWidget {
     const IngredientPage({Key key}) : super(key: key);
