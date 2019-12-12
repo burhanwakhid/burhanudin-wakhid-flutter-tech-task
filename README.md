@@ -1,6 +1,7 @@
 # Installing
 ```
-git clone https://github.com/burhanwakhid/burhanudin-wakhid-flutter-tech-task.git
+1. git clone https://github.com/burhanwakhid/burhanudin-wakhid-flutter-tech-task.git
+2. Get Packages
 ```
 
 # Build Steps
