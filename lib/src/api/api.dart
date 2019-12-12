@@ -20,7 +20,7 @@ class Api {
         throw Exception('Something error');
       }
     } catch(e) {
-      return e;
+      throw Exception(e);
     }
   }
 
@@ -37,7 +37,7 @@ class Api {
         throw Exception('Something error');
       }
     }catch(e) {
-      return e;
+      throw Exception(e);
     }
   }
 }
