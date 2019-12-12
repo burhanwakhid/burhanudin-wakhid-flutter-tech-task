@@ -46,9 +46,9 @@ class _DisplayListIngredientState extends State<DisplayListIngredient> {
                   child: Builder(
                     builder: (context) => FlatButton.icon(
                       onPressed: model.ingredientPicked.isNotEmpty ? () {
-                        print(model.ingredientPicked);
+                        print(model.ingredientPerRecipe);
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => RecipePage(ingredients: model.ingredientPicked,)
+                          builder: (BuildContext context) => RecipePage(ingredients: model.ingredientPicked)
                         ));
                       } : null,
                       icon: Icon(Icons.launch),

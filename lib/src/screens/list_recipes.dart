@@ -9,7 +9,7 @@ class RecipePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<IngredientProvider>(
       create: (_) => IngredientProvider(),
-      child: DisplayRecipePage(ingredients: ingredients,),
+      child: DisplayRecipePage(ingredients: ingredients),
     );
   }
 }
@@ -33,11 +33,11 @@ class _DisplayRecipePageState extends State<DisplayRecipePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('data'),
+        title: Text('Recipes Suggestion'),
       ),
       body: Column(
         children: <Widget>[
-          Text('Your Recipes', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),
+          Center(child: Text('Your Recipes', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),)),
           SizedBox(height: 10,),
           Flexible(
             child: Consumer<IngredientProvider>(

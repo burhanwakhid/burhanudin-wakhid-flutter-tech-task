@@ -28,6 +28,7 @@ class IngredientProvider extends BaseModel {
   DateTime get useBy => _useBy;
 
   List<String> ingredientPerRecipe = [];
+  String get getingredientPerRecipe => ingredientPerRecipe.join(',');
 
   String get getIngredientDate => _useBy.toString().substring(0, 10);
   // sort ingredient by date
@@ -74,18 +75,12 @@ class IngredientProvider extends BaseModel {
     }else{
       _useBy = DateTime.parse(date);
       print(_useBy);
-      print('object');
     }
     notifyListeners();
   }
 
-  void listRecipePerIngredient() async {
-    
-  }
-
   // set date
   void setIngredientDate(DateTime time)async {
-    // final preference = await PreferenceService.getInstance();
     _useBy = time;
     await setDate(getIngredientDate);
 
