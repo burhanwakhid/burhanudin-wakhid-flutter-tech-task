@@ -1,3 +1,23 @@
+# Installing
+```
+git clone https://github.com/burhanwakhid/burhanudin-wakhid-flutter-tech-task.git
+```
+
+# Build Steps
+1. Connect your Devices or Simulator
+2. Run with type _flutter run_ in your terminal or press _F5_ in visual studio code
+
+# Testing
+```
+There are 2 unit tests namely api_test.dart and provider_test.dart.
+1. api_test.dart to test the API Service
+2. provider_test.dart to test the logic or view model
+```
+
+# Usage Instructions
+1. Open App
+2. Select the date and select the available ingredients then press the "get recipes" button and you will get the recommended recipes
+
 # Mobile Technical Task
 Apps for Lunch Recipes Suggestion
 
